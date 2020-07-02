@@ -1,3 +1,5 @@
+简体中文 | [English](README.en.md)
+
 #  f-lang
 
 ## 介绍
