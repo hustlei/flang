@@ -15,42 +15,40 @@ easy to use, cross platform and glue characteristics.
 + **easy-to-use** (like C#) 
 + **cross platform portable** (like java) 
 + **glue characteristics** (like lua) 
-+ **mordern** (like rust、swift，拥有类型推导，异常处理，元编程，垃圾自动回收，异步、并发等现代语言特性) 
++ **mordern** (like rust、swift，with type prediction, exception handle, meta-programming, memery collection, sync、concurrent etc modern characteristics) 
 
 ## f-lang 语言基本定位
 
-1.  编译型语言
-	+ 但有repl解释器
-	+ 为提高移植性和灵活性，考虑二级编译，即编译为中间码，安装时翻译为机器码
-2.  运行时
-	+ 无虚拟机
-	+ 无运行时
-	+ 但是与其他语言交互可考虑设计小的独立引擎
-3.  类型
-	+ 静态类型
-	+ 类型推导
-	+ 类C的弱类型
-	+ 原生支持高级数据结构，如list, vector, dict
-	+ 轻量级OO、FP
-4.  内存管理
-	+ 自动垃圾回收
-	+ 无GC
-	+ 无指针
-    + 安全的堆操作
-5.  原生的异常处理
-6.  原生异步、并发
-7.  与其他语言交互
-	+ 考虑通过独立翻译模块与其他语言交互，保持语言自身的简洁与纯净
-8.  特殊领域，考虑专用dsl设计
-    + UI、图形图像等：类似html5，qml，wpf
+1.  compile language
+	+ with repl
+	+ concider two-level compilation to improve portability and flexibility. compile to intermediate code and translate it into machine code when installing
+2.  runtime
+	+ no virtual machine
+	+ no runtime3.  type
+	+ static type
+	+ type prediction
+	+ weak type like C
+	+ native advance data structure，such as list, vector, dict
+	+ light weight OO、FP
+4.  memery operation
+	+ automatic memery collection
+	+ no GC
+	+ no pintor
+    + safety heap operation
+5.  native exception handle
+6.  native concurrent
+7.  interactive with other language
+	+ considering independent translation module to interact with other languages to keep the language simple and pure
+8.  dsl for special domain
+    + UI、graphics：like html5，qml，wpf
     + network：
-9. 元编程
+9. meta-programming
 	
 ## 语言设计
 
-+ [语义设计](doc/semantic.md)
-+ [语法设计](doc/syntax.md)
-+ [语言实现](src/)
++ [semantic design](doc/semantic.md)
++ [syntax design](doc/syntax.md)
++ [f-lang implement](src/)
 
 
 ## 参考语言
