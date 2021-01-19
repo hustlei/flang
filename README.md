@@ -71,35 +71,27 @@
 2. **C++**
 3. **C#**
 4. **D**
-5. **Smalltalk**
-5. **swift**
-6. **rust**
-7. **python**
-8. **julia**
-9. **Erlang**
-10. **Haskell**
-11. **kotlin**
-12. **Go**
-13. java
-14. nim
-15. F#
-17. Scala
-18. R
-19. Ruby
-20. perl
-21. Typescript
-22. Dart
-23. Scheme
-24. ML
-25. Groovy
-26. Clojure
-27. Crystal
-28. Elixir
-29. lua
-30. Scratch
-31. Lisp
-32. Object-c
-33. Visual Basic
+5. Smalltalk
+6. **swift**
+7. **rust**
+8. **kotlin**
+9. **Go**
+10. java/Groove
+11. **F#**
+12. **nim**
+13. **Scala**
+14. Crystal
+15. Visual Basic
+
+16. **python**
+17. **julia**
+18. **Dart**
+19. Erlang
+20. Elixir
+21. Haskell
+22. Typescript
+23. lua
+24. perl
 
 
 ## 参与贡献
