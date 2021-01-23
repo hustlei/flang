@@ -12,7 +12,15 @@
 + 二维运算符号前后各空一格。
 
 # 推荐缩写
+
+6个以下字母组成的单词，不建议用缩写。
+
+function func
+variable var
+implement impl
+value value, val
 initialize init
+system sys
 compare	cmp
 length	len	
 memory	mem
@@ -21,8 +29,6 @@ command	cmd
 control ctrl
 execute	exec	
 environment	env	
-variable var	
-value value, val
 directory	dir
 extension	ext	
 separator	sep	
@@ -33,7 +39,6 @@ message	msg
 argument	arg	
 object	obj	
 parameter	param
-function	func	
 coordinate coord	
 rectangle rect	
 symbol	sym	
@@ -41,3 +46,6 @@ string	str
 identifier	ident	
 indentation	indent
 procedure	proc
+
+select sel
+class cls
