@@ -20,18 +20,18 @@
 1. 免费开源，基于Apache License，闭源软件也可以免费使用
 2. 编译型语言
     + 无虚拟机、无运行时、核心语言小
-    + 提供交互式repl解释器，供学习，做计算器用。
-    + 提供可内嵌的小型AOT解释器(快速原型开发,以及为桌面应用提供内嵌扩展脚本解决方案）
+    + 提供交互式repl解释器\[可选模块\]，供学习，做计算器用。
+    + 提供可内嵌的小型AOT解释器(为应用提供内嵌扩展脚本解决方案）\[独立版本\]
 3. 数据类型
 	+ 静态类型（但是提供dynamic类型支持，用于ActiveX调用后期绑定等，建议少用）
 	+ 类C的弱类型，数值计算可以自动转换类型
-	+ 支持Unicode，默认使用UTF-8
-	+ 原生支持高级数据结构，如list, map等
+	+ 原生支持Unicode，默认使用UTF-8
+	+ 原生支持高级数据结构，如Vector, Map等
 	+ 支持泛型
 	+ 支持类型推导
 4. 语法
     + 尽可能简化语法的情况下，增强功能
-	+ 零成本抽象，所有程序最终转换为数据+算法+接口的组合
+	+ 零成本抽象，所有程序最终转换为“数据+算法+接口+消息”的组合
 5. 内存管理
 	+ 无GC、无指针
 	+ 安全的堆操作，自动释放堆内存（采用引用计数方法（ARC）回收堆内存）
@@ -50,8 +50,9 @@
 ## flang编译器命令
 
 + 源代码文件编译
-    - `flang compile hello.f`:编译单个文件，或着用`fc hello.f`
+    - `flang compile hello.f`:编译单个文件
         * 参数 -i -b -s -c 分别表示输出IR、二进制IR、汇编、目标文件。可以组合，比如：`-ibc`
+        * `flang hello.f`:同`flang compile hello.f`
     - `flang run hello.f`:编译单个文件并运行
 + 源文件编辑辅助
     - `flang fmt`: or `flang format`格式化源文件
@@ -63,29 +64,30 @@
         * `flang new --bin modname`:表示目标位二进制执行程序。
         * `flang new --lib modname`:则表示库 
     - `flang dep`:依赖管理
-        * `flang dep download`: or `flang dep get` 下载依赖到自己本地项目目录下的dep目录下。
-        * `flang dep cache`:将依赖缓存到本地(非本项目目录，所有项目共用)。
         * `falng dep where`:显示依赖所在文件夹。
+        * `flang dep cache`: or `flang dep get` 下载依赖到本机。
+            + `flang dep get` or `flang dep download`相同
+        * `flang dep config`:依赖缓存位置设置。
         * `flang dep update`:更新依赖，(如果项目依赖设置中指定了最大版本，则最多更新到最大版本)。
-        * `flang dep verify`:检测依赖包自下载之后是否被改动过。
         * `flang dep build`:编译依赖。
         * `flang dep clean`:清除依赖编译的文件。
         * `flang dep list`:显示依赖列表
         * `flang dep graph`:树状显示依赖列表
+        * `flang dep verify`:检测依赖包自下载之后是否被改动过。
         * `flang dep help`:显示帮助
 + 工程模块编译运行
     - `flang build`:编译当前模块mod或者项目proj。
         * `flang build --release`: or `-r`编译发布版。默认为--debug
-        * `flang build --release --cpu:i386 --os:win`交叉编译
+        * `flang build --release --arch:i386 --os:win`交叉编译
     - `flang run`:编译并运行当前模块或项目
     - `flang clean`:清除生成的目标文件
     - `flang test`:编译运行当前模块或项目的测试代码
     - `flang bench`:运行基准测试
 + 交互模式
     - `flang play`:运行playground
-    - `flang shell`: or `flang i` or `flang repl`运行交互式解释器环境
+    - `flang shell`: or `flang repl`运行交互式解释器环境
 + llvm输出
-	- `flang llvm --ast hello.f`: or `-t` 输出抽象语法树
+	- `flang llvm --ast hello.f`:  输出抽象语法树
 	- `flang llvm --ir hello.f`: or `-i` 输出ir代码
 	- `flang llvm --ir -O3 hello.f -o hello.ll`: 输出ir代码，3级优化
 	- `flang llvm --bc hello.f`: or `-b` 输出bitcode（二进制的ir代码）
@@ -94,12 +96,12 @@
     - `flang version`：显示版本信息。or `flang ver`
     - `flang update`:升级flang编译器。
     - `flang help`：显示帮助
-
+	- `flang -###`: 打印后续命令执行细节，不执行，-###可以在命令任意位置。如`flang llvm --ast hello.f -###`
 
  
 ## 主要参考语言
 
-C, C++, C#, Go, Swift, Rust, Scala, python, julia, lua, perl
+C, C++, C#, Go, Swift, Rust, Scala, Python, Julia, Lua, Perl
 
 ## 参与贡献
 
@@ -110,4 +112,4 @@ C, C++, C#, Go, Swift, Rust, Scala, python, julia, lua, perl
 
 ## 后记
 
-希望能够设计一个新语言，以用户为中心，对所有人员都更加友好，且综合性能也不错，欢迎各位大佬萌新一起出谋划策。
+希望能够设计一个语法简洁，易学易用，性能也不错的以用户为中心的新语言，欢迎各位大佬萌新一起出谋划策。
