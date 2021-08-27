@@ -1,10 +1,27 @@
 #include <iostream>
-#include "CodeGen/irgen.hpp"
+#include "AST/ast.hpp"
 
-#include "llvm/IR/LegacyPassManager.h"
+#include <llvm/IR/LLVMContext.h>
+#include <llvm/IR/Module.h>
+#include <llvm/IR/Function.h>
+#include "llvm/IR/BasicBlock.h"
+#include "llvm/IR/IRBuilder.h"
+#include <llvm/IR/Instructions.h>
 
 #include "llvm/IR/Type.h"
+#include <llvm/IR/DerivedTypes.h>
 #include "llvm/IR/Verifier.h"
+
+
+#include "llvm/IR/LegacyPassManager.h"
+#include <llvm/IR/PassManager.h>
+#include <llvm/IR/CallingConv.h>
+#include <llvm/IR/IRPrintingPasses.h>
+#include <llvm/Support/TargetSelect.h>
+#include <llvm/ExecutionEngine/ExecutionEngine.h>
+#include <llvm/ExecutionEngine/MCJIT.h>
+#include <llvm/ExecutionEngine/GenericValue.h>
+#include <llvm/Support/raw_ostream.h>
 
 #include "llvm/Support/FileSystem.h"
 #include "llvm/Support/Host.h"
@@ -30,6 +47,8 @@
 
 extern int yyparse();
 extern Node* astroot;
+
+using namespace std;
 
 /* LLVM 模块和上下文环境 */
 LLVMContext context; //提供了一个用来创建变量等对象的上下文环境。
