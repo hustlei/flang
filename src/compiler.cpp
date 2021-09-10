@@ -19,7 +19,7 @@
 #include <llvm/IR/IRPrintingPasses.h>
 #include <llvm/Support/TargetSelect.h>
 #include <llvm/ExecutionEngine/ExecutionEngine.h>
-#include <llvm/ExecutionEngine/MCJIT.h>
+//#include <llvm/ExecutionEngine/MCJIT.h>
 #include <llvm/ExecutionEngine/GenericValue.h>
 #include <llvm/Support/raw_ostream.h>
 
@@ -97,11 +97,14 @@ int main(int argc, char **argv) {
 	
 	///compile objectfile
 	//initialize all the targets for emitting object code.
-	InitializeAllTargetInfos();
-	InitializeAllTargets();
-	InitializeAllTargetMCs();
-	InitializeAllAsmParsers();
-	InitializeAllAsmPrinters();
+	InitializeNativeTarget();
+	InitializeNativeTargetAsmPrinter();
+	InitializeNativeTargetAsmParser();
+	//InitializeAllTargetInfos();
+	//InitializeAllTargets();
+	//InitializeAllTargetMCs();
+	//InitializeAllAsmParsers();
+	//InitializeAllAsmPrinters();
 	//use target triple to get a Target
 	auto TargetTriple = sys::getDefaultTargetTriple();
 	module.setTargetTriple(TargetTriple);

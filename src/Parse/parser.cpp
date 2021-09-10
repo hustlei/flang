@@ -66,7 +66,7 @@
 
 
 /* First part of user prologue.  */
-#line 4 "Parse/parser.y"
+#line 4 "/mnt/d/Download/sync/weiyun/coding/lang/flang/src/Parse/parser.y"
 
 #include <string>
 #include "../AST/ast.hpp"
@@ -76,7 +76,7 @@ NBlock* astroot; /* the top level root node of AST */
 extern int yylex();
 void yyerror(const char* s);
 
-#line 80 "Parse/parser.cpp"
+#line 80 "/mnt/d/Download/sync/weiyun/coding/lang/flang/src/Parse/parser.cpp"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -109,8 +109,8 @@ void yyerror(const char* s);
 
 /* Use api.header.include to #include this header
    instead of duplicating it here.  */
-#ifndef YY_YY_PARSE_PARSER_HPP_INCLUDED
-# define YY_YY_PARSE_PARSER_HPP_INCLUDED
+#ifndef YY_YY_MNT_D_DOWNLOAD_SYNC_WEIYUN_CODING_LANG_FLANG_SRC_PARSE_PARSER_HPP_INCLUDED
+# define YY_YY_MNT_D_DOWNLOAD_SYNC_WEIYUN_CODING_LANG_FLANG_SRC_PARSE_PARSER_HPP_INCLUDED
 /* Debug traces.  */
 #ifndef YYDEBUG
 # define YYDEBUG 0
@@ -139,7 +139,7 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 19 "Parse/parser.y"
+#line 19 "/mnt/d/Download/sync/weiyun/coding/lang/flang/src/Parse/parser.y"
 
     NBlock* block;
     Node* node;
@@ -148,7 +148,7 @@ union YYSTYPE
     std::string* string;
     int token;
 
-#line 152 "Parse/parser.cpp"
+#line 152 "/mnt/d/Download/sync/weiyun/coding/lang/flang/src/Parse/parser.cpp"
 
 };
 typedef union YYSTYPE YYSTYPE;
@@ -161,7 +161,7 @@ extern YYSTYPE yylval;
 
 int yyparse (void);
 
-#endif /* !YY_YY_PARSE_PARSER_HPP_INCLUDED  */
+#endif /* !YY_YY_MNT_D_DOWNLOAD_SYNC_WEIYUN_CODING_LANG_FLANG_SRC_PARSE_PARSER_HPP_INCLUDED  */
 
 
 
@@ -1324,79 +1324,79 @@ yyreduce:
   switch (yyn)
     {
   case 2:
-#line 40 "Parse/parser.y"
+#line 40 "/mnt/d/Download/sync/weiyun/coding/lang/flang/src/Parse/parser.y"
                { astroot = (yyvsp[0].block);}
-#line 1330 "Parse/parser.cpp"
+#line 1330 "/mnt/d/Download/sync/weiyun/coding/lang/flang/src/Parse/parser.cpp"
     break;
 
   case 3:
-#line 43 "Parse/parser.y"
+#line 43 "/mnt/d/Download/sync/weiyun/coding/lang/flang/src/Parse/parser.y"
        { (yyval.block) = new NBlock(); (yyval.block)->nodes.push_back((yyvsp[0].node));}
-#line 1336 "Parse/parser.cpp"
+#line 1336 "/mnt/d/Download/sync/weiyun/coding/lang/flang/src/Parse/parser.cpp"
     break;
 
   case 4:
-#line 44 "Parse/parser.y"
+#line 44 "/mnt/d/Download/sync/weiyun/coding/lang/flang/src/Parse/parser.y"
              { (yyvsp[-1].block)->nodes.push_back((yyvsp[0].node)); }
-#line 1342 "Parse/parser.cpp"
+#line 1342 "/mnt/d/Download/sync/weiyun/coding/lang/flang/src/Parse/parser.cpp"
     break;
 
   case 5:
-#line 48 "Parse/parser.y"
+#line 48 "/mnt/d/Download/sync/weiyun/coding/lang/flang/src/Parse/parser.y"
                         { (yyval.node) = new NAssignment(*(yyvsp[-3].ident), *(yyvsp[-1].node)); printf(">");}
-#line 1348 "Parse/parser.cpp"
+#line 1348 "/mnt/d/Download/sync/weiyun/coding/lang/flang/src/Parse/parser.cpp"
     break;
 
   case 6:
-#line 49 "Parse/parser.y"
+#line 49 "/mnt/d/Download/sync/weiyun/coding/lang/flang/src/Parse/parser.y"
            {(yyval.node) = (yyvsp[-1].node); printf(">");}
-#line 1354 "Parse/parser.cpp"
+#line 1354 "/mnt/d/Download/sync/weiyun/coding/lang/flang/src/Parse/parser.cpp"
     break;
 
   case 8:
-#line 54 "Parse/parser.y"
+#line 54 "/mnt/d/Download/sync/weiyun/coding/lang/flang/src/Parse/parser.y"
                 { (yyval.node) = new NBinaryOperate(*(yyvsp[-2].node), (yyvsp[-1].token), *(yyvsp[0].node)); }
-#line 1360 "Parse/parser.cpp"
+#line 1360 "/mnt/d/Download/sync/weiyun/coding/lang/flang/src/Parse/parser.cpp"
     break;
 
   case 9:
-#line 55 "Parse/parser.y"
+#line 55 "/mnt/d/Download/sync/weiyun/coding/lang/flang/src/Parse/parser.y"
                 { (yyval.node) = new NBinaryOperate(*(yyvsp[-2].node), (yyvsp[-1].token), *(yyvsp[0].node)); }
-#line 1366 "Parse/parser.cpp"
+#line 1366 "/mnt/d/Download/sync/weiyun/coding/lang/flang/src/Parse/parser.cpp"
     break;
 
   case 10:
-#line 56 "Parse/parser.y"
+#line 56 "/mnt/d/Download/sync/weiyun/coding/lang/flang/src/Parse/parser.y"
                 { (yyval.node) = new NBinaryOperate(*(yyvsp[-2].node), (yyvsp[-1].token), *(yyvsp[0].node)); }
-#line 1372 "Parse/parser.cpp"
+#line 1372 "/mnt/d/Download/sync/weiyun/coding/lang/flang/src/Parse/parser.cpp"
     break;
 
   case 11:
-#line 57 "Parse/parser.y"
+#line 57 "/mnt/d/Download/sync/weiyun/coding/lang/flang/src/Parse/parser.y"
                 { (yyval.node) = new NBinaryOperate(*(yyvsp[-2].node), (yyvsp[-1].token), *(yyvsp[0].node)); }
-#line 1378 "Parse/parser.cpp"
+#line 1378 "/mnt/d/Download/sync/weiyun/coding/lang/flang/src/Parse/parser.cpp"
     break;
 
   case 12:
-#line 61 "Parse/parser.y"
+#line 61 "/mnt/d/Download/sync/weiyun/coding/lang/flang/src/Parse/parser.y"
         { (yyval.node) = (yyvsp[0].ident); }
-#line 1384 "Parse/parser.cpp"
+#line 1384 "/mnt/d/Download/sync/weiyun/coding/lang/flang/src/Parse/parser.cpp"
     break;
 
   case 13:
-#line 62 "Parse/parser.y"
+#line 62 "/mnt/d/Download/sync/weiyun/coding/lang/flang/src/Parse/parser.y"
           { (yyval.node) = new NInteger(std::stoi(*(yyvsp[0].string)));  delete (yyvsp[0].string);}
-#line 1390 "Parse/parser.cpp"
+#line 1390 "/mnt/d/Download/sync/weiyun/coding/lang/flang/src/Parse/parser.cpp"
     break;
 
   case 14:
-#line 66 "Parse/parser.y"
+#line 66 "/mnt/d/Download/sync/weiyun/coding/lang/flang/src/Parse/parser.y"
              { (yyval.ident) = new NIdentifier(*(yyvsp[0].string)); delete (yyvsp[0].string);}
-#line 1396 "Parse/parser.cpp"
+#line 1396 "/mnt/d/Download/sync/weiyun/coding/lang/flang/src/Parse/parser.cpp"
     break;
 
 
-#line 1400 "Parse/parser.cpp"
+#line 1400 "/mnt/d/Download/sync/weiyun/coding/lang/flang/src/Parse/parser.cpp"
 
       default: break;
     }
@@ -1628,7 +1628,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 71 "Parse/parser.y"
+#line 71 "/mnt/d/Download/sync/weiyun/coding/lang/flang/src/Parse/parser.y"
 
 
 
