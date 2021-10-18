@@ -13,29 +13,30 @@ typedef IRBuilder<> Builder;
 
 class Node {
 public:
+public:
 	virtual ~Node() {}
-	virtual llvm::Value* codegen(Builder builder) = 0; //{ return NULL; }//通过llvm api创建IR最常用的方法就是调用IRBuilder
+	virtual llvm::Value* codegen(Builder& builder) = 0; //{ return NULL; }//通过llvm api创建IR最常用的方法就是调用IRBuilder
 };
 
 class NBlock: public Node {
 public:
 	std::vector<Node*> nodes;
 	NBlock() { }
-	llvm::Value* codegen(Builder builder) override;
+	llvm::Value* codegen(Builder& builder) override;
 };
 
 class NInteger : public Node {
 public:
 	long long value;
 	NInteger(long long value) : value(value) { }
-	llvm::Value* codegen(Builder builder) override;
+	llvm::Value* codegen(Builder& builder) override;
 };
 
 class NIdentifier : public Node {
 public:
 	std::string name;
 	NIdentifier(const std::string& name) : name(name) { }
-	llvm::Value* codegen(Builder builder) override;
+	llvm::Value* codegen(Builder& builder) override;
 };
 
 class NBinaryOperate : public Node {
@@ -44,7 +45,7 @@ public:
 	Node& lhs;
 	Node& rhs;
 	NBinaryOperate(Node& lhs, int op, Node& rhs):lhs(lhs), rhs(rhs), op(op) { }
-	llvm::Value* codegen(Builder builder) override;
+	llvm::Value* codegen(Builder& builder) override;
 };
 
 class NAssignment : public Node {
@@ -52,5 +53,5 @@ public:
 	NIdentifier& lhs;
 	Node& rhs;
 	NAssignment(NIdentifier& lhs, Node& rhs): lhs(lhs), rhs(rhs) { }
-	llvm::Value* codegen(Builder builder) override;
+	llvm::Value* codegen(Builder& builder) override;
 };

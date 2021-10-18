@@ -25,8 +25,8 @@ void yyerror(const char* s);
     int token;
 }
 /* 定义token，<>中表示数据（好像没有起作用），引用union内变量名 */
-%token <string> IDENTIFIER INTEGER
-%token <token> ADD SUB MUL DIV ASSIGN EOL
+%token <string> IDENTIFIER INTEGER COMMENT
+%token <token> ADD SUB MUL DIV ASSIGN EOL domain
 /* 定义语法规则数据类型，与union中的变量名对应 */
 %type <block> program stmts
 %type <node> stmt expr term
@@ -66,7 +66,8 @@ ident:
   IDENTIFIER { $$ = new NIdentifier(*$1); delete $1;}
 ;
   
-
+comment:
+  COMMENT {print("comment"); delete $1;}
 ;
 %%
 

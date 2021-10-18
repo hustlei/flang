@@ -66,7 +66,7 @@
 
 
 /* First part of user prologue.  */
-#line 4 "/mnt/d/Download/sync/weiyun/coding/lang/flang/src/Parse/parser.y"
+#line 4 "/media/weiyun/lang/flang/src/Parse/parser.y"
 
 #include <string>
 #include "../AST/ast.hpp"
@@ -76,7 +76,7 @@ NBlock* astroot; /* the top level root node of AST */
 extern int yylex();
 void yyerror(const char* s);
 
-#line 80 "/mnt/d/Download/sync/weiyun/coding/lang/flang/src/Parse/parser.cpp"
+#line 80 "/media/weiyun/lang/flang/src/Parse/parser.cpp"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -109,8 +109,8 @@ void yyerror(const char* s);
 
 /* Use api.header.include to #include this header
    instead of duplicating it here.  */
-#ifndef YY_YY_MNT_D_DOWNLOAD_SYNC_WEIYUN_CODING_LANG_FLANG_SRC_PARSE_PARSER_HPP_INCLUDED
-# define YY_YY_MNT_D_DOWNLOAD_SYNC_WEIYUN_CODING_LANG_FLANG_SRC_PARSE_PARSER_HPP_INCLUDED
+#ifndef YY_YY_MEDIA_WEIYUN_LANG_FLANG_SRC_PARSE_PARSER_HPP_INCLUDED
+# define YY_YY_MEDIA_WEIYUN_LANG_FLANG_SRC_PARSE_PARSER_HPP_INCLUDED
 /* Debug traces.  */
 #ifndef YYDEBUG
 # define YYDEBUG 0
@@ -126,12 +126,14 @@ extern int yydebug;
   {
     IDENTIFIER = 258,
     INTEGER = 259,
-    ADD = 260,
-    SUB = 261,
-    MUL = 262,
-    DIV = 263,
-    ASSIGN = 264,
-    EOL = 265
+    COMMENT = 260,
+    ADD = 261,
+    SUB = 262,
+    MUL = 263,
+    DIV = 264,
+    ASSIGN = 265,
+    EOL = 266,
+    domain = 267
   };
 #endif
 
@@ -139,7 +141,7 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 19 "/mnt/d/Download/sync/weiyun/coding/lang/flang/src/Parse/parser.y"
+#line 19 "/media/weiyun/lang/flang/src/Parse/parser.y"
 
     NBlock* block;
     Node* node;
@@ -148,7 +150,7 @@ union YYSTYPE
     std::string* string;
     int token;
 
-#line 152 "/mnt/d/Download/sync/weiyun/coding/lang/flang/src/Parse/parser.cpp"
+#line 154 "/media/weiyun/lang/flang/src/Parse/parser.cpp"
 
 };
 typedef union YYSTYPE YYSTYPE;
@@ -161,7 +163,7 @@ extern YYSTYPE yylval;
 
 int yyparse (void);
 
-#endif /* !YY_YY_MNT_D_DOWNLOAD_SYNC_WEIYUN_CODING_LANG_FLANG_SRC_PARSE_PARSER_HPP_INCLUDED  */
+#endif /* !YY_YY_MEDIA_WEIYUN_LANG_FLANG_SRC_PARSE_PARSER_HPP_INCLUDED  */
 
 
 
@@ -470,7 +472,7 @@ union yyalloc
 #define YYLAST   21
 
 /* YYNTOKENS -- Number of terminals.  */
-#define YYNTOKENS  11
+#define YYNTOKENS  13
 /* YYNNTS -- Number of nonterminals.  */
 #define YYNNTS  7
 /* YYNRULES -- Number of rules.  */
@@ -479,7 +481,7 @@ union yyalloc
 #define YYNSTATES  24
 
 #define YYUNDEFTOK  2
-#define YYMAXUTOK   265
+#define YYMAXUTOK   267
 
 
 /* YYTRANSLATE(TOKEN-NUM) -- Symbol number corresponding to TOKEN-NUM
@@ -517,7 +519,7 @@ static const yytype_int8 yytranslate[] =
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     1,     2,     3,     4,
-       5,     6,     7,     8,     9,    10
+       5,     6,     7,     8,     9,    10,    11,    12
 };
 
 #if YYDEBUG
@@ -534,9 +536,9 @@ static const yytype_int8 yyrline[] =
    First, the terminals, then, starting at YYNTOKENS, nonterminals.  */
 static const char *const yytname[] =
 {
-  "$end", "error", "$undefined", "IDENTIFIER", "INTEGER", "ADD", "SUB",
-  "MUL", "DIV", "ASSIGN", "EOL", "$accept", "program", "stmts", "stmt",
-  "expr", "term", "ident", YY_NULLPTR
+  "$end", "error", "$undefined", "IDENTIFIER", "INTEGER", "COMMENT",
+  "ADD", "SUB", "MUL", "DIV", "ASSIGN", "EOL", "domain", "$accept",
+  "program", "stmts", "stmt", "expr", "term", "ident", YY_NULLPTR
 };
 #endif
 
@@ -546,11 +548,11 @@ static const char *const yytname[] =
 static const yytype_int16 yytoknum[] =
 {
        0,   256,   257,   258,   259,   260,   261,   262,   263,   264,
-     265
+     265,   266,   267
 };
 # endif
 
-#define YYPACT_NINF (-6)
+#define YYPACT_NINF (-13)
 
 #define yypact_value_is_default(Yyn) \
   ((Yyn) == YYPACT_NINF)
@@ -564,9 +566,9 @@ static const yytype_int16 yytoknum[] =
      STATE-NUM.  */
 static const yytype_int8 yypact[] =
 {
-       9,    -6,    -6,    19,     9,    -6,    -5,    -6,    11,    -6,
-      -6,     9,     9,     9,     9,    -6,     9,    -6,    -6,    -6,
-      -6,    -6,     1,    -6
+       9,   -13,   -13,    19,     9,   -13,    -6,   -13,    11,   -13,
+     -13,     9,     9,     9,     9,   -13,     9,   -13,   -13,   -13,
+     -13,   -13,     0,   -13
 };
 
   /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -582,7 +584,7 @@ static const yytype_int8 yydefact[] =
   /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-      -6,    -6,    -6,     0,     5,     4,    10
+     -13,   -13,   -13,    16,   -12,     4,    10
 };
 
   /* YYDEFGOTO[NTERM-NUM].  */
@@ -596,32 +598,32 @@ static const yytype_int8 yydefgoto[] =
      number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_int8 yytable[] =
 {
-      11,    12,    13,    14,    10,    15,    11,    12,    13,    14,
+      11,    12,    13,    14,    22,    15,    11,    12,    13,    14,
        8,    23,     1,     2,     8,    17,    19,    20,    21,     9,
-      16,    22
+      10,    16
 };
 
 static const yytype_int8 yycheck[] =
 {
-       5,     6,     7,     8,     4,    10,     5,     6,     7,     8,
-       0,    10,     3,     4,     4,    11,    12,    13,    14,     0,
-       9,    16
+       6,     7,     8,     9,    16,    11,     6,     7,     8,     9,
+       0,    11,     3,     4,     4,    11,    12,    13,    14,     0,
+       4,    10
 };
 
   /* YYSTOS[STATE-NUM] -- The (internal number of the) accessing
      symbol of state STATE-NUM.  */
 static const yytype_int8 yystos[] =
 {
-       0,     3,     4,    12,    13,    14,    15,    16,    17,     0,
-      14,     5,     6,     7,     8,    10,     9,    16,    17,    16,
-      16,    16,    15,    10
+       0,     3,     4,    14,    15,    16,    17,    18,    19,     0,
+      16,     6,     7,     8,     9,    11,    10,    18,    19,    18,
+      18,    18,    17,    11
 };
 
   /* YYR1[YYN] -- Symbol number of symbol that rule YYN derives.  */
 static const yytype_int8 yyr1[] =
 {
-       0,    11,    12,    13,    13,    14,    14,    15,    15,    15,
-      15,    15,    16,    16,    17
+       0,    13,    14,    15,    15,    16,    16,    17,    17,    17,
+      17,    17,    18,    18,    19
 };
 
   /* YYR2[YYN] -- Number of symbols on the right hand side of rule YYN.  */
@@ -1324,79 +1326,79 @@ yyreduce:
   switch (yyn)
     {
   case 2:
-#line 40 "/mnt/d/Download/sync/weiyun/coding/lang/flang/src/Parse/parser.y"
+#line 40 "/media/weiyun/lang/flang/src/Parse/parser.y"
                { astroot = (yyvsp[0].block);}
-#line 1330 "/mnt/d/Download/sync/weiyun/coding/lang/flang/src/Parse/parser.cpp"
+#line 1332 "/media/weiyun/lang/flang/src/Parse/parser.cpp"
     break;
 
   case 3:
-#line 43 "/mnt/d/Download/sync/weiyun/coding/lang/flang/src/Parse/parser.y"
+#line 43 "/media/weiyun/lang/flang/src/Parse/parser.y"
        { (yyval.block) = new NBlock(); (yyval.block)->nodes.push_back((yyvsp[0].node));}
-#line 1336 "/mnt/d/Download/sync/weiyun/coding/lang/flang/src/Parse/parser.cpp"
+#line 1338 "/media/weiyun/lang/flang/src/Parse/parser.cpp"
     break;
 
   case 4:
-#line 44 "/mnt/d/Download/sync/weiyun/coding/lang/flang/src/Parse/parser.y"
+#line 44 "/media/weiyun/lang/flang/src/Parse/parser.y"
              { (yyvsp[-1].block)->nodes.push_back((yyvsp[0].node)); }
-#line 1342 "/mnt/d/Download/sync/weiyun/coding/lang/flang/src/Parse/parser.cpp"
+#line 1344 "/media/weiyun/lang/flang/src/Parse/parser.cpp"
     break;
 
   case 5:
-#line 48 "/mnt/d/Download/sync/weiyun/coding/lang/flang/src/Parse/parser.y"
+#line 48 "/media/weiyun/lang/flang/src/Parse/parser.y"
                         { (yyval.node) = new NAssignment(*(yyvsp[-3].ident), *(yyvsp[-1].node)); printf(">");}
-#line 1348 "/mnt/d/Download/sync/weiyun/coding/lang/flang/src/Parse/parser.cpp"
+#line 1350 "/media/weiyun/lang/flang/src/Parse/parser.cpp"
     break;
 
   case 6:
-#line 49 "/mnt/d/Download/sync/weiyun/coding/lang/flang/src/Parse/parser.y"
+#line 49 "/media/weiyun/lang/flang/src/Parse/parser.y"
            {(yyval.node) = (yyvsp[-1].node); printf(">");}
-#line 1354 "/mnt/d/Download/sync/weiyun/coding/lang/flang/src/Parse/parser.cpp"
+#line 1356 "/media/weiyun/lang/flang/src/Parse/parser.cpp"
     break;
 
   case 8:
-#line 54 "/mnt/d/Download/sync/weiyun/coding/lang/flang/src/Parse/parser.y"
+#line 54 "/media/weiyun/lang/flang/src/Parse/parser.y"
                 { (yyval.node) = new NBinaryOperate(*(yyvsp[-2].node), (yyvsp[-1].token), *(yyvsp[0].node)); }
-#line 1360 "/mnt/d/Download/sync/weiyun/coding/lang/flang/src/Parse/parser.cpp"
+#line 1362 "/media/weiyun/lang/flang/src/Parse/parser.cpp"
     break;
 
   case 9:
-#line 55 "/mnt/d/Download/sync/weiyun/coding/lang/flang/src/Parse/parser.y"
+#line 55 "/media/weiyun/lang/flang/src/Parse/parser.y"
                 { (yyval.node) = new NBinaryOperate(*(yyvsp[-2].node), (yyvsp[-1].token), *(yyvsp[0].node)); }
-#line 1366 "/mnt/d/Download/sync/weiyun/coding/lang/flang/src/Parse/parser.cpp"
+#line 1368 "/media/weiyun/lang/flang/src/Parse/parser.cpp"
     break;
 
   case 10:
-#line 56 "/mnt/d/Download/sync/weiyun/coding/lang/flang/src/Parse/parser.y"
+#line 56 "/media/weiyun/lang/flang/src/Parse/parser.y"
                 { (yyval.node) = new NBinaryOperate(*(yyvsp[-2].node), (yyvsp[-1].token), *(yyvsp[0].node)); }
-#line 1372 "/mnt/d/Download/sync/weiyun/coding/lang/flang/src/Parse/parser.cpp"
+#line 1374 "/media/weiyun/lang/flang/src/Parse/parser.cpp"
     break;
 
   case 11:
-#line 57 "/mnt/d/Download/sync/weiyun/coding/lang/flang/src/Parse/parser.y"
+#line 57 "/media/weiyun/lang/flang/src/Parse/parser.y"
                 { (yyval.node) = new NBinaryOperate(*(yyvsp[-2].node), (yyvsp[-1].token), *(yyvsp[0].node)); }
-#line 1378 "/mnt/d/Download/sync/weiyun/coding/lang/flang/src/Parse/parser.cpp"
+#line 1380 "/media/weiyun/lang/flang/src/Parse/parser.cpp"
     break;
 
   case 12:
-#line 61 "/mnt/d/Download/sync/weiyun/coding/lang/flang/src/Parse/parser.y"
+#line 61 "/media/weiyun/lang/flang/src/Parse/parser.y"
         { (yyval.node) = (yyvsp[0].ident); }
-#line 1384 "/mnt/d/Download/sync/weiyun/coding/lang/flang/src/Parse/parser.cpp"
+#line 1386 "/media/weiyun/lang/flang/src/Parse/parser.cpp"
     break;
 
   case 13:
-#line 62 "/mnt/d/Download/sync/weiyun/coding/lang/flang/src/Parse/parser.y"
+#line 62 "/media/weiyun/lang/flang/src/Parse/parser.y"
           { (yyval.node) = new NInteger(std::stoi(*(yyvsp[0].string)));  delete (yyvsp[0].string);}
-#line 1390 "/mnt/d/Download/sync/weiyun/coding/lang/flang/src/Parse/parser.cpp"
+#line 1392 "/media/weiyun/lang/flang/src/Parse/parser.cpp"
     break;
 
   case 14:
-#line 66 "/mnt/d/Download/sync/weiyun/coding/lang/flang/src/Parse/parser.y"
+#line 66 "/media/weiyun/lang/flang/src/Parse/parser.y"
              { (yyval.ident) = new NIdentifier(*(yyvsp[0].string)); delete (yyvsp[0].string);}
-#line 1396 "/mnt/d/Download/sync/weiyun/coding/lang/flang/src/Parse/parser.cpp"
+#line 1398 "/media/weiyun/lang/flang/src/Parse/parser.cpp"
     break;
 
 
-#line 1400 "/mnt/d/Download/sync/weiyun/coding/lang/flang/src/Parse/parser.cpp"
+#line 1402 "/media/weiyun/lang/flang/src/Parse/parser.cpp"
 
       default: break;
     }
@@ -1628,7 +1630,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 71 "/mnt/d/Download/sync/weiyun/coding/lang/flang/src/Parse/parser.y"
+#line 72 "/media/weiyun/lang/flang/src/Parse/parser.y"
 
 
 

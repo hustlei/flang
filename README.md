@@ -2,53 +2,87 @@
 
 #  flang
 
-目的是设计一个兼具python的简洁易用、C++的高效、且没有虚拟机没有GC的静态编译型语言。
+flang是一个兼具python的简洁易用、C++的高效、且没有虚拟机没有GC且
+能够自动回收内存的静态编译型语言。
 
 ## flang目标
 
-+ **简洁**（像python一样，代码简洁）语法简洁，开发速度快，贯彻编程语言为人服务的目标
++ **简洁**（像python一样，代码简洁）语法简洁，开发速度快，贯彻编程语言
+为人服务的目标
 + **高效**（像C++一样零成本抽象）运行速度快，发布体积小，且原生支持并行
-+ **现代**（像rust、swift一样，拥有类型推导，异常处理，对象分配内存自动回收，异步并发等现代语言特性）
++ **易用**（像rust、swift一样，拥有类型推导，异常处理，对象分配内存自动
+回收，异步并发等现代语言特性）
 
-
-> （不追求rust那样的安全性，但要像Swift一样，适当牺牲运行效率，换来代码安全易用）不支持指针，无GC但通过引用计数等方法释放内存
+> 兼具开发效率、性能、安全、并发等特点
+>
+>> 不追求rust那样的安全性，但要像Swift一样，适当牺牲运行效率，换来代码安全易用。
+>> 不支持指针，无GC但通过引用计数等方法释放内存。
 
 ## flang 语言主要特点
 
 1. 免费开源，基于Apache License，闭源软件也可以免费使用
-2. 编译型语言
-    + 无虚拟机、无运行时、核心语言小
-    + 提供交互式repl解释器\[可选模块\]，供学习，做计算器用。\[独立选装组件\]
-    + 提供可内嵌的小型AOT解释器(为应用提供内嵌扩展脚本解决方案）\[独立选装组件\]
+2. 编译型语言(AOT)
+    + 无虚拟机、无运行时（ARC引用计数方式自动回收堆内存）、核心语言小
+    + \[待定\]考虑初次编译为字节码，安装时编译为目标机器码的方式发布应用。
+    + 提供交互式repl解释器\[可选安装组件\]，供学习、做计算器用。
+    + 提供可内嵌的jit引擎\[独立下载包\]，为其他应用提供内嵌脚本解决方案。
 3. 数据类型
-	+ 静态类型（但是提供dynamic类型支持，用于ActiveX调用后期绑定等，建议少用）
+	+ 静态类型（提供dynamic类型支持，仅用于COM调用后期绑定等，建议少用）
 	+ 类C的弱类型，数值计算可以自动转换类型。其他类型为强类型。
+    + 原生支持精确计算及无限制精度整数
 	+ 原生支持Unicode，默认使用UTF-8
 	+ 原生支持高级数据结构，如List, Dic等
 	+ 支持泛型
 	+ 支持类型推导
 4. 语法
     + 尽可能简化语法的情况下，增强功能
-	+ 零成本抽象，所有程序最终转换为“数据+算法+接口+消息”的组合，尽可能的由编译器实现静态分发，必要的情况下采用动态分发方式
+	+ 零成本抽象，所有程序最终转换为“数据+算法+接口+消息”的组合，尽可能
+    的由编译器实现静态分发，必要的情况下采用动态分发方式
 5. 内存管理
-	+ 无GC、无指针
+	+ 无GC、无指针、无运行时
 	+ 安全的堆操作，自动释放堆内存（采用引用计数方法（ARC）回收堆内存）
 6. 原生的异常处理
 7. 原生异步、并发设计
-8. 与其他语言交互
+8. 语言互操作
+    + 支持内嵌llvm ir
 	+ 支持与C语言直接交互
-	+ 考虑设计独立模块或引擎（像lua一样小巧，适当损失性能）与其他语言交互，保持语言自身的简洁与纯净
+	+ 考虑通过类似runtime的小型独立模块或引擎与其他语言混编（像lua一样小巧，
+    适当损失性能，保持语言自身的简洁与纯净）
+9. 跨平台
+    + 调用api通过特定平台库
+    + ui，图像等（系统高耦合操作）:dsl标准库
+
 
 ## 语言设计
 
 + [语法设计](doc/specification/中文/目录.md)
 
+flang helloworld代码示例：
+
+~~~
+// helloworld.f
+domain hello
+use sys.*
+
+pub func main(){
+  println("hello, world!")
+}
+~~~
+
+
+flang源代码通常有以下四部分组成：
+
++ 注释
++ 域声明
++ 外部域引用
++ 函数、类型、类型别名或特性定义
+
 ## flang编译器命令
 
 + 源代码文件编译
-    - `flang compile hello.f`:编译单个文件
-        * 参数 -i -b -s -c 分别表示输出IR、二进制IR、汇编、目标文件。可以组合，比如：`-ibc`
-        * `flang hello.f`:同`flang compile hello.f`
+    - `flang compile hello.f`: `or flang hello.f`编译单个文件
+        + 参数 -i -b -s -c 分别表示输出IR、二进制IR、汇编、目标文件。
+        可以组合，比如：`-ibc`
     - `flang run hello.f`:编译单个文件并运行
 + 源文件编辑辅助
     - `flang fmt`: or `flang format`格式化源文件
@@ -57,24 +91,23 @@
 + 源代码组织管理
     - `flang init`:创建一个proj，proj中包含一个mod，mod中含有一个helloworld源代码。
     - `flang new modname`:在当前proj中增加一个mod。
-        * `flang new --bin modname`:表示目标位二进制执行程序。
-        * `flang new --lib modname`:则表示库 
+        +`flang new --bin modname`:表示目标位二进制执行程序。
+        +`flang new --lib modname`:则表示库 。
     - `flang dep`:依赖管理
-        * `falng dep where`:显示依赖所在文件夹。
-        * `flang dep cache`: or `flang dep get` 下载依赖到本机。
-            + `flang dep get` or `flang dep download`相同
-        * `flang dep config`:依赖缓存位置设置。
-        * `flang dep update`:更新依赖，(如果项目依赖设置中指定了最大版本，则最多更新到最大版本)。
-        * `flang dep build`:编译依赖。
-        * `flang dep clean`:清除依赖编译的文件。
-        * `flang dep list`:显示依赖列表
-        * `flang dep graph`:树状显示依赖列表
-        * `flang dep verify`:检测依赖包自下载之后是否被改动过。
-        * `flang dep help`:显示帮助
+        + `falng dep where`:显示依赖所在文件夹。
+        + `flang dep cache`: or `flang dep get` or `flang dep download` 下载依赖到本机。
+        + `flang dep config`:依赖缓存位置设置。
+        + `flang dep update`:更新依赖，(如果项目依赖设置中指定了最大版本，则最多更新到最大版本)。
+        + `flang dep build`:编译依赖。
+        + `flang dep clean`:清除依赖编译的文件。
+        + `flang dep list`:显示依赖列表
+        + `flang dep graph`:树状显示依赖列表
+        + `flang dep verify`:检测依赖包自下载之后是否被改动过。
+        + `flang dep help`:显示帮助
 + 工程模块编译运行
     - `flang build`:编译当前模块mod或者项目proj。
-        * `flang build --release`: or `-r`编译发布版。默认为--debug
-        * `flang build --release --arch:i386 --os:win`交叉编译
+        + `flang build --release`: or `-r`编译发布版。默认为--debug
+        + `flang build --release --arch:i386 --os:win`交叉编译
     - `flang run`:编译并运行当前模块或项目
     - `flang clean`:清除生成的目标文件
     - `flang test`:编译运行当前模块或项目的测试代码
@@ -88,6 +121,8 @@
 	- `flang llvm --ir -O3 hello.f -o hello.ll`: 输出ir代码，3级优化
 	- `flang llvm --bc hello.f`: or `-b` 输出bitcode（二进制的ir代码）
 	- `flang llvm --asm hello.f`: or `-s` 输出汇编代码
++ 安装包辅助命令
+    - `flang pkg dirname -o instpkg`: 根据dirname文件夹内容创建instpkg安装包
 + 辅助命令
     - `flang version`：显示版本信息。or `flang ver`
     - `flang update`:升级flang编译器。
@@ -97,7 +132,7 @@
  
 ## 主要参考语言
 
-C, C++, C#, Go, Swift, Rust, Scala, Python, Julia, Lua, Perl
+C, C++, C#, Go, Swift, Rust, Scala, Python, Julia, Lua
 
 ## 参与贡献
 
@@ -108,4 +143,5 @@ C, C++, C#, Go, Swift, Rust, Scala, Python, Julia, Lua, Perl
 
 ## 后记
 
-希望能够设计一个语法简洁，易学易用，性能也不错的以用户为中心的新语言，欢迎各位大佬萌新一起出谋划策。
+希望能够设计一个语法简洁，易学易用，性能也不错的以用户为中心的新语言，
+欢迎各位大佬萌新一起出谋划策。

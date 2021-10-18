@@ -15,12 +15,16 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)    #True也可以，设置指定的C++版本
 message(STATUS "Project_dir:${CMAKE_SOURCE_DIR}")
 message(STATUS "Binary_dir: ${CMAKE_BINARY_DIR}")
 
+message(STATUS "ZLIB_INC:${ZLIB_INCLUDE_DIR}")
+#find_package(ZLIB REQUIRED)
+#may be a bug, find_package doesn't work
+set(ZLIB_LIBRARY "/usr/lib/x86_64-linux-gnu/libz.a") #or libz.so
+
 #llvm设置
 find_package(LLVM REQUIRED CONFIG)
 message(STATUS "Found LLVM ${LLVM_PACKAGE_VERSION}")
 message(STATUS "Using LLVMConfig.cmake in: ${LLVM_DIR}")
 message(STATUS  "Using LLVM INCLUDE DIRS:${LLVM_INCLUDE_DIRS}")
-
 # 设置编译选项
 include_directories(${LLVM_INCLUDE_DIRS})    #c++头文件
 #separate_arguments(LLVM_DEFINITIONS_LIST NATIVE_COMMAND ${LLVM_DEFINITIONS})
@@ -34,11 +38,12 @@ add_subdirectory(Lex)
 add_subdirectory(Parse)
 
 ##设置源文件和编译目标
-include_directories(AST Lex Parse IRGen)
+include_directories(AST Lex Parse IRGen Base)
 aux_source_directory(Lex lex)
 aux_source_directory(Parse parse)
 aux_source_directory(IRGen irgen)
-set(SOURCE ${lex} ${parse} ${irgen})
+aux_source_directory(Base base)
+set(SOURCE ${lex} ${parse} ${irgen} ${base})
 add_executable(compiler compiler.cpp ${SOURCE})
 
 #链接设置

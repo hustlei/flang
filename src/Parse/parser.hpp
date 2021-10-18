@@ -34,8 +34,8 @@
 /* Undocumented macros, especially those whose name start with YY_,
    are private implementation details.  Do not rely on them.  */
 
-#ifndef YY_YY_MNT_D_DOWNLOAD_SYNC_WEIYUN_CODING_LANG_FLANG_SRC_PARSE_PARSER_HPP_INCLUDED
-# define YY_YY_MNT_D_DOWNLOAD_SYNC_WEIYUN_CODING_LANG_FLANG_SRC_PARSE_PARSER_HPP_INCLUDED
+#ifndef YY_YY_MEDIA_WEIYUN_LANG_FLANG_SRC_PARSE_PARSER_HPP_INCLUDED
+# define YY_YY_MEDIA_WEIYUN_LANG_FLANG_SRC_PARSE_PARSER_HPP_INCLUDED
 /* Debug traces.  */
 #ifndef YYDEBUG
 # define YYDEBUG 0
@@ -51,12 +51,14 @@ extern int yydebug;
   {
     IDENTIFIER = 258,
     INTEGER = 259,
-    ADD = 260,
-    SUB = 261,
-    MUL = 262,
-    DIV = 263,
-    ASSIGN = 264,
-    EOL = 265
+    COMMENT = 260,
+    ADD = 261,
+    SUB = 262,
+    MUL = 263,
+    DIV = 264,
+    ASSIGN = 265,
+    EOL = 266,
+    domain = 267
   };
 #endif
 
@@ -64,7 +66,7 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 19 "/mnt/d/Download/sync/weiyun/coding/lang/flang/src/Parse/parser.y"
+#line 19 "/media/weiyun/lang/flang/src/Parse/parser.y"
 
     NBlock* block;
     Node* node;
@@ -73,7 +75,7 @@ union YYSTYPE
     std::string* string;
     int token;
 
-#line 77 "/mnt/d/Download/sync/weiyun/coding/lang/flang/src/Parse/parser.hpp"
+#line 79 "/media/weiyun/lang/flang/src/Parse/parser.hpp"
 
 };
 typedef union YYSTYPE YYSTYPE;
@@ -86,4 +88,4 @@ extern YYSTYPE yylval;
 
 int yyparse (void);
 
-#endif /* !YY_YY_MNT_D_DOWNLOAD_SYNC_WEIYUN_CODING_LANG_FLANG_SRC_PARSE_PARSER_HPP_INCLUDED  */
+#endif /* !YY_YY_MEDIA_WEIYUN_LANG_FLANG_SRC_PARSE_PARSER_HPP_INCLUDED  */

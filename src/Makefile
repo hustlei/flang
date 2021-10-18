@@ -7,8 +7,8 @@ LINKFLAGS = `llvm-config --ldflags --libs`
 
 BUILDDIR = ../build/
 OBJDIR = $(BUILDDIR)objs/
-OBJS =  $(OBJDIR)irgen.o $(OBJDIR)parser.o $(OBJDIR)lexer.o
-SRCS = IRGen/irgen.cpp Parse/parser.cpp Lex/lexer.cpp
+OBJS =  $(OBJDIR)irgen.o $(OBJDIR)parser.o $(OBJDIR)lexer.o $(OBJDIR)init.o
+SRCS = IRGen/irgen.cpp Parse/parser.cpp Lex/lexer.cpp Base/init.cpp
 
 initdir:
 	@mkdir -p ../build
@@ -26,6 +26,8 @@ $(OBJDIR)%.o: IRGen/%.cpp
 $(OBJDIR)%.o: Parse/%.cpp
 	$(CXX) -c $(CPPFLAGS) -o $@ $<
 $(OBJDIR)%.o: Lex/%.cpp
+	$(CXX) -c $(CPPFLAGS) -o $@ $<
+$(OBJDIR)%.o: Base/%.cpp
 	$(CXX) -c $(CPPFLAGS) -o $@ $<
 $(OBJDIR)%.o: %.cpp
 	$(CXX) -c $(CPPFLAGS) -o $@ $<
