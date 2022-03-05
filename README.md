@@ -14,7 +14,8 @@ flang基本定位：
 + 可以解释执行、AOT运行，也可以编译为机器码运行。可作为编译语言、可作为脚本。可以先编译后运行，也可以热加载运行代码。
 + 无虚拟机、无GC，不支持指针，采用引用计数(ARC)等方法自动回收堆内存。
 + 静态类型，支持类型推导和泛型。但是提供dynamic动态类型支持，用于特殊情况。
-+ 语法简洁。但是可以通过标记（类似C#的Attribute特性，rust的Attribute属性）指定内存及编译特点，进一步提供高级功能优化性能。
++ 语法简洁。
++ 可以通过标记（类似C#的Attribute特性，rust的Attribute属性）指定内存及编译特点，进一步提供高级功能优化性能。如静态分发、动态分发、虚表等。
 + 能够方面方便的调用C、C++等语言编制的模块。采用类似swig的方式生成接口。
 
 > + 像python一样，代码简洁，开发速度快，同时方便科研和生产，贯彻编程语言为人服务的目标。
@@ -51,7 +52,7 @@ flang基本定位：
 6. 原生异步、并发设计
 7. 语言互操作
     + 支持内嵌llvm ir
-	+ 用类似swig的方式调用C、C++、rust等模块。用类似lua一样的小模块与动态语言交互。
+	+ 用类似swig的方式调用C、C++、rust、fortran等模块。用类似lua一样的小模块与动态语言或有运行时语言交互，如python、java、c#等。
 8. 跨平台
     + 操作系统api包装成类似python的sys, os模块，简洁、通用、方便
     + ui，图像等系统高耦合操作：采用统一的dsl+样式库(类似html+css的方式)。
@@ -63,38 +64,28 @@ flang基本定位：
 
 flang helloworld代码示例：
 
-~~~
-# coding: uft8
+```
+#/usr/bin/env flang
+#coding: uft8
 
-use core.prelude
+println("hello, world!")
+```
+
+> flang可以像脚本代码一样使用，在函数外直接编写语句，从而省略main函数声明。
+
+
+flang也可以用main函数作为入口函数：
+
+~~~
+#coding: uft8
 
 func main(){
   println("hello, world!") 
 }
 ~~~
 
-
-flang源代码通常有以下三部分组成：
-
-+ 编译器指令或标记（#开头）
-+ 外部模块引用（use 外部包）
-+ 函数、类型、类型别名或特性定义
-
-> `use core.prelude`：引用core包中最常用的模块或函数，prelude是个关键字，并非引入prelude模块，而是引入core模块中被指定为最常用的一组函数或模块，有点类似通配符`*`。
-> main函数是程序入口函数，一个包只能包含一个main函数。main函数默认为pub(public)类型，不需要显式声明。
-> 所有的语句，包括编译器指令，外部模块引用都可以用分号表示结束。但是语句独立一行时，可以省略分号。
-> flang采用注释，多行用`/* ... */`，单行用`//`，文档注释以`/**`或`///`开头。
-
-flang可以像脚本代码一样使用，即函数外可以编写顶级语句，从而省略main函数声明。
-
-```
-# /usr/bin/env flang
-# coding: uft8
-
-println("hello, world!") 
-```
-
-> 一个包中的多个源文件模块内，只有一个源文件可以使用顶级语句。且顶级语句和main函数不同同时出现在一个包中。
+> flang每个源文件是一个模块，多个模块共同组成一个包，一个包中只有一个模块能包含main函数。
+> 作为脚本(在模块中直接编写语句)的源文件，和main函数，在一个包中只能出现一次。
 
 ## flang编译器命令
 
@@ -143,7 +134,7 @@ println("hello, world!")
 	- `flang llvm --bc hello.f`: or `-b` 输出bitcode（二进制的ir代码）
 	- `flang llvm --asm hello.f`: or `-s` 输出汇编代码
 + 安装包辅助命令
-    - `flang pkg dirname -o instpkg`: 根据dirname文件夹内容创建instpkg安装包
+    - `flang installer "dirname" -o installer.exe`: 根据dirname文件夹内容创建installer安装包
 + 辅助命令
     - `flang version`：显示版本信息。or `flang ver`
     - `flang update`:升级flang编译器。
@@ -153,7 +144,7 @@ println("hello, world!")
  
 ## 主要参考语言
 
-Python, Rust, Go, Swift, C#, C, C++, Julia, Lua
+Python, C#, Rust, Swift, Go, C, C++, Julia, Lua
 
 ## 后记
 
